@@ -9,10 +9,28 @@ const User = db.define('user', {
   username: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
   password: {
     type: Sequelize.STRING,
+  },
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
+  cart: {
+    type: Sequelize.TEXT,
   }
 })
 
