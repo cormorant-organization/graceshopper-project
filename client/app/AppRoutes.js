@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
-import AuthForm from '../features/auth/AuthForm';
-import Home from '../features/home/Home';
-import { me } from './store';
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Route, Routes } from "react-router-dom";
+import AuthForm from "../features/auth/AuthForm";
+import Home from "../features/home/Home";
+import { me } from "./store";
 import Allpuppies from '../features/allpuppies/Allpuppies';
 
 /**
@@ -20,17 +20,13 @@ const AppRoutes = () => {
 
   return (
     <div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
       {isLoggedIn ? (
-        <Routes>
-          <Route path="/*" element={<Home />} />
-          <Route to="/home" element={<Home />} />
-        </Routes>
+        <Routes></Routes>
       ) : (
         <Routes>
-          <Route
-            path="/*"
-            element={<AuthForm name="login" displayName="Login" />}
-          />
           <Route
             path="/login"
             element={<AuthForm name="login" displayName="Login" />}

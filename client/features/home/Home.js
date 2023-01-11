@@ -1,5 +1,6 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React from "react";
+import { useSelector } from "react-redux";
+import { Typography } from "@mui/material";
 
 /**
  * COMPONENT
@@ -9,7 +10,11 @@ const Home = (props) => {
 
   return (
     <div>
-      <h3>Welcome, {username}</h3>
+      <div>
+        <Typography variant="h4" align="center" margin={3}>
+          Welcome to the homepage!
+        </Typography>
+      </div>
     </div>
   );
 };
