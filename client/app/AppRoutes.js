@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
-import AuthForm from '../features/auth/AuthForm';
-import Home from '../features/home/Home';
-import { me } from './store';
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Route, Routes } from "react-router-dom";
+import AuthForm from "../features/auth/AuthForm";
+import Home from "../features/home/Home";
+import SinglePuppyView from "../features/SinglePuppyView/SinglePuppyView";
+import { me } from "./store";
 
 /**
  * COMPONENT
@@ -19,6 +20,9 @@ const AppRoutes = () => {
 
   return (
     <div>
+      <Routes>
+        <Route path="/puppy/:id" element={<SinglePuppyView />} />
+      </Routes>
       {isLoggedIn ? (
         <Routes>
           <Route path="/*" element={<Home />} />
