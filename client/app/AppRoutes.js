@@ -5,6 +5,7 @@ import AuthForm from "../features/auth/AuthForm";
 import Home from "../features/home/Home";
 import { me } from "./store";
 import Allpuppies from '../features/allpuppies/Allpuppies';
+import SinglePuppyView from "../features/SinglePuppyView/SinglePuppyView";
 
 /**
  * COMPONENT
@@ -23,6 +24,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/puppies" element={<Allpuppies name="allpuppies" displayName="All Puppies"/>} />
+        <Route path="/puppy/:id" element={<SinglePuppyView />} />
       </Routes>
       {isLoggedIn ? (
         <Routes></Routes>

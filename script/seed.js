@@ -100,7 +100,6 @@ const possibleBreeds = [
   "spaniel",
   "spitz",
   "springer",
-  "stbernard",
   "terrier",
   "tervuren",
   "vizsla",
