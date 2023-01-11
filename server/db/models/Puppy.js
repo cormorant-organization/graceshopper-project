@@ -30,7 +30,7 @@ const Puppy = db.define("puppy", {
     allowNull: false,
   },
   price: {
-    type: Sequelize.DECIMAL(3, 2),
+    type: Sequelize.DECIMAL(10, 2),
     allowNull: false,
   },
 });
