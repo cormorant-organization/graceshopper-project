@@ -5,7 +5,11 @@ import allPuppiesReducer from "../features/allpuppies/allpuppiesSlice";
 import SinglePuppyReducer from "../features/SinglePuppyView/SinglePuppySlice";
 
 const store = configureStore({
-  reducer: { auth: authReducer, allPuppies: allPuppiesReducer, puppy: SinglePuppyReducer },
+  reducer: {
+    auth: authReducer,
+    allPuppies: allPuppiesReducer,
+    puppy: SinglePuppyReducer,
+  },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
