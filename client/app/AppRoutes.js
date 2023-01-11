@@ -19,29 +19,17 @@ const AppRoutes = () => {
 
   return (
     <div>
-      {isLoggedIn ? (
-        <Routes>
-          <Route path="/*" element={<Home />} />
-          <Route to="/home" element={<Home />} />
-        </Routes>
-      ) : (
-        <Routes>
-          <Route path="/*" element={<Home />} />
-          <Route to="/home" element={<Home />} />
-          <Route
-            path="/*"
-            element={<AuthForm name="login" displayName="Login" />}
-          />
-          <Route
-            path="/login"
-            element={<AuthForm name="login" displayName="Login" />}
-          />
-          <Route
-            path="/signup"
-            element={<AuthForm name="signup" displayName="Sign Up" />}
-          />
-        </Routes>
-      )}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/login"
+          element={<AuthForm name="login" displayName="Login" />}
+        />
+        <Route
+          path="/signup"
+          element={<AuthForm name="signup" displayName="Sign Up" />}
+        />
+      </Routes>
     </div>
   );
 };

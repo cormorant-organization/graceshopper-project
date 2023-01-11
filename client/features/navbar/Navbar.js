@@ -19,8 +19,11 @@ const Navbar = () => {
     <div>
       <AppBar position="static" sx={{ bgcolor: grey[300] }}>
         <Toolbar sx={{ p: -1 }}>
-          <Button href="/home" variant="text" sx={{ m: 1, color: "black" }}>
+          <Button href="/" variant="text" sx={{ m: 1, color: "black" }}>
             Home
+          </Button>
+          <Button href="/puppies" variant="text" sx={{ m: 1, color: "black" }}>
+            All Puppies
           </Button>
           {isLoggedIn ? (
             <div>
@@ -52,9 +55,7 @@ const Navbar = () => {
               </Button>
             </div>
           )}
-          <Button href="/puppies" variant="text" sx={{ m: 1, color: "black" }}>
-            All Puppies
-          </Button>
+
           <IconButton>
             <Badge badgeContent={5} color="primary" sx={{ m: 2 }}>
               <ShoppingCart />
