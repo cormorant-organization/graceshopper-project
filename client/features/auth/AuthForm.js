@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authenticate } from "../../app/store";
 import { TextField, Button, Grid } from "@mui/material";
@@ -14,6 +15,7 @@ const AuthForm = ({ name, displayName }) => {
   const [isSignup, setIsSignup] = useState(name === "signup");
   const [username, setUsername] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -36,8 +38,8 @@ const AuthForm = ({ name, displayName }) => {
   const handleSignup = (evt) => {
     evt.preventDefault();
     setIsSignup(true);
-    setUserName(evt.target.username.value);
-    name = "signup";
+    setUsername(evt.target.username.value);
+    navigate("/signup");
   };
 
   return (
