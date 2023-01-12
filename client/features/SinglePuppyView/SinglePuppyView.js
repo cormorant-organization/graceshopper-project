@@ -68,6 +68,7 @@ const SinglePuppyView = () => {
                   {puppy.color.charAt(0).toUpperCase() + puppy.color.slice(1)}
                 </h4>
                 <h4>Age: {puppy.age}</h4>
+                <h4>Price: ${puppy.price}</h4>
                 <p style={{ width: 300 }}>{puppy.description}</p>
               </Stack>
               <Button variant="contained">Add to cart</Button>
