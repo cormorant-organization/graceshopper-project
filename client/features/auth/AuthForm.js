@@ -12,6 +12,7 @@ import { TextField, Button } from "@mui/material";
 
 const AuthForm = ({ name, displayName }) => {
   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
@@ -20,7 +21,16 @@ const AuthForm = ({ name, displayName }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    dispatch(authenticate({ username, password, method: formName }));
+    const formName = evt.target.name;
+    dispatch(
+      authenticate({
+        username,
+        password,
+        // firstName,
+        // lastName,
+        method: formName,
+      })
+    );
     dispatch(addUserAsync({ username, password, firstName, lastName }));
     setUsername("");
     setPassword("");
