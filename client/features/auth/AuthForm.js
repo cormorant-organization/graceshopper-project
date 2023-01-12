@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { authenticate } from "../../app/store";
-import { addUserAsync } from "../allusers/usersSlice";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Grid } from "@mui/material";
 
 /**
   The AuthForm component can be used for Login or Sign Up.
@@ -11,75 +10,118 @@ import { TextField, Button } from "@mui/material";
 **/
 
 const AuthForm = ({ name, displayName }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-
   const { error } = useSelector((state) => state.auth);
+  const [isSignup, setIsSignup] = useState(name === "signup");
+  const [username, setUsername] = useState("");
   const dispatch = useDispatch();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     const formName = evt.target.name;
+    const username = evt.target.username.value;
+    const password = evt.target.password.value;
+    const firstName = evt.target.firstName.value;
+    const lastName = evt.target.lastName.value;
     dispatch(
       authenticate({
         username,
         password,
-        // firstName,
-        // lastName,
+        firstName,
+        lastName,
         method: formName,
       })
     );
-    dispatch(addUserAsync({ username, password, firstName, lastName }));
-    console.log("clicked!");
+  };
+
+  const handleSignup = (evt) => {
+    evt.preventDefault();
+    setIsSignup(true);
+    setUserName(evt.target.username.value);
+    name = "signup";
   };
 
   return (
     <div>
-      <form name={name} onSubmit={handleSubmit} sx={{ m: 2 }}>
-        <TextField
-          label="Username"
-          value={username}
-          variant="outlined"
-          sx={{ m: 2 }}
-          style={{ width: 250 }}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-        <TextField
-          label="First Name"
-          value={firstName}
-          variant="outlined"
-          sx={{ m: 2 }}
-          style={{ width: 250 }}
-          onChange={(e) => setFirstName(e.target.value)}
-          required
-        />
-        <TextField
-          label="Last Name"
-          value={lastName}
-          variant="outlined"
-          sx={{ m: 2 }}
-          style={{ width: 250 }}
-          onChange={(e) => setLastName(e.target.value)}
-          required
-        />
-        <TextField
-          label="Password"
-          value={password}
-          variant="outlined"
-          sx={{ m: 2 }}
-          style={{ width: 250 }}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <br></br>
-        <Button type="submit" color="primary" variant="contained" sx={{ m: 2 }}>
-          Create
-        </Button>
+      {!isSignup ? (
+        <p>Already have an account with us?</p>
+      ) : (
+        <p>Create an account</p>
+      )}
+      <form onSubmit={handleSubmit} name={name}>
+        <Grid container>
+          <Grid item xs={6}>
+            <TextField
+              variant="outlined"
+              label="email"
+              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              type="email"
+              required
+            />
+            <TextField
+              variant="outlined"
+              label="password"
+              name="password"
+              type="password"
+              required
+            />
+            {isSignup && (
+              <>
+                <TextField
+                  variant="outlined"
+                  label="First Name"
+                  name="firstName"
+                  required
+                />
+                <TextField
+                  variant="outlined"
+                  label="Last Name"
+                  name="lastName"
+                  required
+                />
+              </>
+            )}
+          </Grid>
+        </Grid>
+        {/* <div>
+          <label htmlFor="username">
+            <small>Username</small>
+          </label>
+          <input name="username" type="text" />
+        </div> */}
+        {/* <div>
+          <label htmlFor="password">
+            <small>Password</small>
+          </label>
+          <input name="password" type="password" />
+        </div> */}
+        <div>
+          <Button type="submit">{displayName}</Button>
+        </div>
         {error && <div> {error} </div>}
       </form>
+      {!isSignup && (
+        <>
+          <p>New Visitor?</p>
+          <form onSubmit={handleSignup}>
+            <Grid container>
+              <Grid item xs={6}>
+                <TextField
+                  variant="outlined"
+                  label="email"
+                  name="username"
+                  type="email"
+                  required
+                />
+              </Grid>
+            </Grid>
+            <div>
+              <Button type="submit">Create Account</Button>
+            </div>
+          </form>
+        </>
+      )}
     </div>
   );
 };
