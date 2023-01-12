@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate, BrowserRouter } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { logout } from "../../app/store";
-import { Button, AppBar, Toolbar, IconButton, Badge } from "@mui/material";
+import { me } from "../auth/authSlice";
+import {
+  Button,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Badge,
+  Avatar,
+  Typography,
+} from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
-import { grey } from "@mui/material/colors";
+import { grey, blue } from "@mui/material/colors";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
@@ -14,6 +23,10 @@ const Navbar = () => {
     dispatch(logout());
     navigate("/login");
   };
+  const user = useSelector((state) => state.auth.me);
+  useEffect(() => {
+    dispatch(me());
+  }, [dispatch]);
 
   return (
     <div>
@@ -25,6 +38,20 @@ const Navbar = () => {
           <Button href="/puppies" variant="text" sx={{ m: 1, color: "black" }}>
             All Puppies
           </Button>
+          {user.isAdmin && (
+            <div>
+              <Button
+                href="/allusers"
+                variant="text"
+                sx={{ m: 1, color: "black" }}
+              >
+                All Users
+              </Button>
+              <Button variant="text" sx={{ m: 1, color: "blue" }}>
+                You Are In The Admin View
+              </Button>
+            </div>
+          )}
           {isLoggedIn ? (
             <div>
               {/* The navbar will show these links after you log in */}
@@ -36,6 +63,13 @@ const Navbar = () => {
               >
                 Log Out
               </Button>
+              <IconButton href="/user">
+                <Avatar
+                  alt={user.firstName}
+                  src="/broken-image.jpg"
+                  sx={{ bgcolor: blue[300] }}
+                ></Avatar>
+              </IconButton>
             </div>
           ) : (
             <div>
@@ -55,8 +89,7 @@ const Navbar = () => {
               </Button>
             </div>
           )}
-
-          <IconButton>
+          <IconButton href="/cart">
             <Badge badgeContent={5} color="primary" sx={{ m: 2 }}>
               <ShoppingCart />
             </Badge>

@@ -19,6 +19,10 @@ const AppRoutes = () => {
   useEffect(() => {
     dispatch(me());
   }, []);
+  const user = useSelector((state) => state.auth.me);
+  useEffect(() => {
+    dispatch(me());
+  }, [dispatch]);
 
   return (
     <div>
@@ -29,6 +33,7 @@ const AppRoutes = () => {
           element={<Allpuppies name="allpuppies" displayName="All Puppies" />}
         />
         <Route path="/puppy/:id" element={<SinglePuppyView />} />
+        <Route path="/cart" />
       </Routes>
       {isLoggedIn ? (
         <Routes>
