@@ -208,6 +208,21 @@ async function seed() {
       usersGenerated = value;
     });
 
+    usersGenerated.push({
+      username: "normalUser@gmail.com",
+      password: "normal",
+      firstName: "Norm",
+      lastName: "Alan",
+    });
+
+    usersGenerated.push({
+      username: "admin@gmail.com",
+      password: "admin",
+      firstName: "Addie",
+      lastName: "Min",
+      isAdmin: true,
+    });
+
     const users = await Promise.all(
       usersGenerated.map((user) => {
         return User.create(user);
