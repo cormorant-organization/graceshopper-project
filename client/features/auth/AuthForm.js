@@ -32,10 +32,6 @@ const AuthForm = ({ name, displayName }) => {
       })
     );
     dispatch(addUserAsync({ username, password, firstName, lastName }));
-    setUsername("");
-    setPassword("");
-    setFirstName("");
-    setLastName("");
     console.log("clicked!");
   };
 
