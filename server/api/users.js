@@ -17,13 +17,3 @@ router.get("/", async (req, res, next) => {
     next(err);
   }
 });
-
-// router.post("/", async (req, res, next) => {
-//   try {
-//     const newUser = await User.create(req.body);
-//     console.log("req.body:", req.body);
-//     res.json(newUser);
-//   } catch (err) {
-//     next(err);
-//   }
-// });

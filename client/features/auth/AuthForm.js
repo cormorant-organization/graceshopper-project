@@ -22,8 +22,12 @@ const AuthForm = ({ name, displayName }) => {
     const formName = evt.target.name;
     const username = evt.target.username.value;
     const password = evt.target.password.value;
-    const firstName = evt.target.firstName.value;
-    const lastName = evt.target.lastName.value;
+    let firstName = undefined;
+    let lastName = undefined;
+    if (isSignup) {
+      firstName = evt.target.firstName.value;
+      lastName = evt.target.lastName.value;
+    }
     dispatch(
       authenticate({
         username,
