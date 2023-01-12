@@ -33,7 +33,6 @@ const AppRoutes = () => {
           element={<Allpuppies name="allpuppies" displayName="All Puppies" />}
         />
         <Route path="/puppy/:id" element={<SinglePuppyView />} />
-        <Route path="/cart" />
       </Routes>
       {isLoggedIn ? (
         <Routes>

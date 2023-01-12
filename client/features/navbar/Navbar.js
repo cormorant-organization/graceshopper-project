@@ -12,7 +12,7 @@ import {
   Avatar,
   Typography,
 } from "@mui/material";
-import { ShoppingCart } from "@mui/icons-material";
+import { ShoppingCart, Home } from "@mui/icons-material";
 import { grey, blue } from "@mui/material/colors";
 
 const Navbar = () => {
@@ -32,9 +32,9 @@ const Navbar = () => {
     <div>
       <AppBar position="static" sx={{ bgcolor: grey[300] }}>
         <Toolbar sx={{ p: -1 }}>
-          <Button href="/" variant="text" sx={{ m: 1, color: "black" }}>
-            Home
-          </Button>
+          <IconButton href="/">
+            <Home></Home>
+          </IconButton>
           <Button href="/puppies" variant="text" sx={{ m: 1, color: "black" }}>
             All Puppies
           </Button>
