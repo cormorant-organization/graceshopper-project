@@ -12,6 +12,15 @@ export const CartSlice = createSlice({
     removeProduct(state, action) {
       state = state.filter((product) => product.id !== action.payload.id);
     },
+    subtractProduct(state, action) {
+      let removed = false;
+      state = state.filter((product) => {
+        if (!removed && product.id === action.payload.id) {
+          removed = true;
+          return product.id !== action.payload.id;
+        } else return true;
+      });
+    },
     clearCart(state, action) {
       return [];
     },
