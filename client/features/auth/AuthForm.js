@@ -37,6 +37,7 @@ const AuthForm = ({ name, displayName }) => {
         method: formName,
       })
     );
+    navigate("/user");
   };
 
   const handleSignup = (evt) => {

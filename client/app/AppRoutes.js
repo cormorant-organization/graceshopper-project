@@ -19,6 +19,10 @@ const AppRoutes = () => {
   useEffect(() => {
     dispatch(me());
   }, []);
+  const user = useSelector((state) => state.auth.me);
+  useEffect(() => {
+    dispatch(me());
+  }, [dispatch]);
 
   return (
     <div>
