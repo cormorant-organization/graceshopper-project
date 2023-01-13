@@ -7,6 +7,7 @@ import { me } from "./store";
 import Allpuppies from "../features/allpuppies/Allpuppies";
 import SinglePuppyView from "../features/SinglePuppyView/SinglePuppyView";
 import Profile from "../features/profile/Profile";
+import Cart from "../features/cart/Cart";
 
 /**
  * COMPONENT
@@ -29,6 +30,7 @@ const AppRoutes = () => {
           element={<Allpuppies name="allpuppies" displayName="All Puppies" />}
         />
         <Route path="/puppies/:id" element={<SinglePuppyView />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
       {isLoggedIn ? (
         <Routes>

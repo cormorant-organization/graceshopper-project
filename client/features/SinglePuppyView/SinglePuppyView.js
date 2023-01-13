@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { fetchSinglePuppy } from "./SinglePuppySlice";
+import { CartSlice } from "../cart/CartSlice";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
@@ -14,12 +15,22 @@ import CardHeader from "@mui/material/CardHeader";
 
 const SinglePuppyView = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const puppy = useSelector((state) => state.puppy);
   const { id } = useParams();
 
   useEffect(() => {
     dispatch(fetchSinglePuppy(id));
   }, [dispatch]);
+
+  const addToCartHandler = () => {
+    let savedCart = JSON.parse(window.localStorage.getItem("cart"));
+    if (savedCart) {
+      savedCart.push(puppy);
+    } else savedCart = [puppy];
+    window.localStorage.setItem("cart", JSON.stringify(savedCart));
+    navigate("/cart");
+  };
 
   return (
     <>
@@ -71,7 +82,9 @@ const SinglePuppyView = () => {
                 <h4>Price: ${puppy.price}</h4>
                 <p style={{ width: 300 }}>{puppy.description}</p>
               </Stack>
-              <Button variant="contained">Add to cart</Button>
+              <Button variant="contained" onClick={addToCartHandler}>
+                Add to cart
+              </Button>
             </Stack>
           </>
         ) : (
