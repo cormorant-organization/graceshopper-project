@@ -88,7 +88,15 @@ const Navbar = () => {
             </div>
           )}
           <IconButton href="/cart">
-            <Badge badgeContent={5} color="primary" sx={{ m: 2 }}>
+            <Badge
+              badgeContent={
+                JSON.parse(window.localStorage.getItem("cart"))
+                  ? JSON.parse(window.localStorage.getItem("cart")).length
+                  : null
+              }
+              color="primary"
+              sx={{ m: 2 }}
+            >
               <ShoppingCart />
             </Badge>
           </IconButton>
