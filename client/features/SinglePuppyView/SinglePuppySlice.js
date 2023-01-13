@@ -14,15 +14,30 @@ export const fetchSinglePuppy = createAsyncThunk(
   }
 );
 
+export const deleteSinglePuppy = createAsyncThunk(
+  "puppies/deleteSingle",
+  async (id) => {
+    try {
+      await axios.delete(`/api/puppies/${id}`);
+    } catch (err) {
+      return err.message;
+    }
+  }
+)
+
 const initialState = {};
 
 const SinglePuppySlice = createSlice({
   name: "puppy",
   initialState,
   extraReducers(builder) {
-    builder.addCase(fetchSinglePuppy.fulfilled, (state, action) => {
+    builder
+    .addCase(fetchSinglePuppy.fulfilled, (state, action) => {
       return action.payload;
-    });
+    })
+    .addCase(deleteSinglePuppy.fulfilled, (state, action) => {
+      state = {};
+    })
   },
 });
 

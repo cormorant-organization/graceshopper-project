@@ -21,3 +21,15 @@ router.get("/:id", async (req, res, next) => {
     next(err);
   }
 });
+
+router.delete("/:id", async (req, res, next) => {
+  try {
+    await Puppy.destroy({
+      where: {
+        id: req.params.id,
+      }
+    })
+  } catch (err) {
+    next(err);
+  }
+})
