@@ -20,3 +20,4 @@ const store = configureStore({
 export default store;
 export * from "../features/auth/authSlice";
 export * from "../features/allpuppies/allpuppiesSlice";
+export * from "../features/allusers/usersSlice";

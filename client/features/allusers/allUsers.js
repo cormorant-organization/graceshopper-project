@@ -6,6 +6,7 @@ import { Typography } from "@mui/material";
 const AllUsers = () => {
   const allUsers = useSelector(selectAllUsers);
   const dispatch = useDispatch();
+  console.log(`all users: ${allUsers}`);
 
   useEffect(() => {
     dispatch(fetchAllUsersAsync());
@@ -19,11 +20,14 @@ const AllUsers = () => {
       <div>
         {allUsers && allUsers.length
           ? allUsers.map((user) => {
-              <Typography>
-                {user.id}
-                {user.firstName}
-                {user.lastName}
-              </Typography>;
+              return (
+                <Typography key={user.id}>
+                  {user.id}
+                  {user.username}
+                  {user.firstName}
+                  {user.lastName}
+                </Typography>
+              );
             })
           : "No users found"}
       </div>
