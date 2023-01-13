@@ -4,6 +4,7 @@ import authReducer from "../features/auth/authSlice";
 import allPuppiesReducer from "../features/allpuppies/allpuppiesSlice";
 import SinglePuppyReducer from "../features/SinglePuppyView/SinglePuppySlice";
 import allUsersReducer from "../features/allusers/usersSlice";
+import CartReducer from "../features/cart/CartSlice";
 
 const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
     allPuppies: allPuppiesReducer,
     puppy: SinglePuppyReducer,
     users: allUsersReducer,
+    cart: CartReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
