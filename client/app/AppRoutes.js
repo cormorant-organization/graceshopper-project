@@ -6,6 +6,7 @@ import Home from "../features/home/Home";
 import { me } from "./store";
 import Allpuppies from "../features/allpuppies/Allpuppies";
 import SinglePuppyView from "../features/SinglePuppyView/SinglePuppyView";
+import AllUsers from "../features/allusers/allUsers";
 import Profile from "../features/profile/Profile";
 import Cart from "../features/cart/Cart";
 
@@ -50,6 +51,11 @@ const AppRoutes = () => {
             path="/signup"
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
+        </Routes>
+      )}
+      {user.isAdmin && (
+        <Routes>
+          <Route path="/allusers" element={<AllUsers />} />
         </Routes>
       )}
     </div>
