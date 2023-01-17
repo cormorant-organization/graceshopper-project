@@ -53,7 +53,6 @@ export const decrementProduct = createAsyncThunk(
   "decrementProduct/cart",
   async ({ userId, puppyId }) => {
     try {
-      console.log("this is puppyId from the thunk", puppyId);
       const { data } = await axios.delete(
         `/api/orders/${userId}/decrementProduct`,
         { data: { source: puppyId } }
