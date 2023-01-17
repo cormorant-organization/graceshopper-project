@@ -62,27 +62,4 @@ const AllUsers = () => {
   );
 };
 
-//   return (
-//     <div>
-//       <Typography variant="h3" component="h2" align="center">
-//         All Users
-//       </Typography>
-//       {/* <div>
-//         {allUsers && allUsers.length
-//           ? allUsers.map((user) => {
-//               return (
-//                 <Typography key={user.id}>
-//                   {user.id}
-//                   {user.username}
-//                   {user.firstName}
-//                   {user.lastName}
-//                 </Typography>
-//               );
-//             })
-//           : "No users found"}
-//       </div> */}
-//     </div>
-//   );
-// };
-
 export default AllUsers;
