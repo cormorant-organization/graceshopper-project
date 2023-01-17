@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchSinglePuppy } from "./SinglePuppySlice";
-import { CartSlice } from "../cart/CartSlice";
+import { addToCart, CartSlice, fetchCart } from "../cart/CartSlice";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
@@ -17,6 +17,8 @@ const SinglePuppyView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const puppy = useSelector((state) => state.puppy);
+  const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const userId = useSelector((state) => state.auth.me.id);
   const { id } = useParams();
 
   useEffect(() => {
@@ -24,11 +26,15 @@ const SinglePuppyView = () => {
   }, [dispatch]);
 
   const addToCartHandler = () => {
-    let savedCart = JSON.parse(window.localStorage.getItem("cart"));
-    if (savedCart) {
-      savedCart.push(puppy);
-    } else savedCart = [puppy];
-    window.localStorage.setItem("cart", JSON.stringify(savedCart));
+    if (isLoggedIn) {
+      dispatch(addToCart({ userId: userId, puppyId: puppy.id }));
+    } else {
+      let savedCart = JSON.parse(window.localStorage.getItem("cart"));
+      if (savedCart) {
+        savedCart.push(puppy);
+      } else savedCart = [puppy];
+      window.localStorage.setItem("cart", JSON.stringify(savedCart));
+    }
     navigate("/cart");
   };
 

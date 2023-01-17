@@ -20,5 +20,7 @@ module.exports = {
   models: {
     User,
     Puppy,
+    Order,
+    Session,
   },
 };

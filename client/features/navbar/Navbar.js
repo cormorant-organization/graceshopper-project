@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { ShoppingCart, Home } from "@mui/icons-material";
 import { grey, blue } from "@mui/material/colors";
+import { fetchCart } from "../cart/CartSlice";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
@@ -24,8 +25,12 @@ const Navbar = () => {
     navigate("/login");
   };
   const user = useSelector((state) => state.auth.me);
+  const cart = useSelector((state) => state.cart);
   useEffect(() => {
     dispatch(me());
+    if (isLoggedIn) {
+      dispatch(fetchCart(user.id));
+    }
   }, [dispatch]);
 
   return (
@@ -90,7 +95,11 @@ const Navbar = () => {
           <IconButton href="/cart">
             <Badge
               badgeContent={
-                JSON.parse(window.localStorage.getItem("cart"))
+                isLoggedIn
+                  ? cart
+                    ? cart.length
+                    : null
+                  : JSON.parse(window.localStorage.getItem("cart"))
                   ? JSON.parse(window.localStorage.getItem("cart")).length
                   : null
               }
