@@ -31,9 +31,7 @@ const AllUsers = () => {
       createData(user.id, user.firstName, user.lastName, user.username)
     );
   }),
-    // createData("1", "Shoshana", "Levitt", "shoshana.levitt@gmail.com"),
 
-    console.log(`Rows: ${rows}`);
 
   return (
     <TableContainer component={Paper} sx={{ m: 1 }}>
