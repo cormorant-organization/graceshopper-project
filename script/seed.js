@@ -5,6 +5,8 @@ const {
   models: { User, Puppy },
 } = require("../server/db");
 const axios = require("axios");
+const Order = require("../server/db/models/Order");
+const Session = require("../server/db/models/Session");
 
 const possibleColors = [
   "brown",
@@ -223,9 +225,28 @@ async function seed() {
       isAdmin: true,
     });
 
+    const orders = [{ userId: 1, closed: false }];
+
+    const sessions = [
+      { orderId: 1, puppyId: 1 },
+      { orderId: 1, puppyId: 2 },
+    ];
+
     const users = await Promise.all(
       usersGenerated.map((user) => {
         return User.create(user);
+      })
+    );
+
+    await Promise.all(
+      orders.map((order) => {
+        return Order.create(order);
+      })
+    );
+
+    await Promise.all(
+      sessions.map((session) => {
+        return Session.create(session);
       })
     );
 

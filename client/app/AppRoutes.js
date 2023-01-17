@@ -9,6 +9,7 @@ import SinglePuppyView from "../features/SinglePuppyView/SinglePuppyView";
 import AllUsers from "../features/allusers/allUsers";
 import Profile from "../features/profile/Profile";
 import Cart from "../features/cart/Cart";
+import Checkout from "../features/checkout/checkout";
 
 /**
  * COMPONENT
@@ -36,6 +37,7 @@ const AppRoutes = () => {
         />
         <Route path="/puppies/:id" element={<SinglePuppyView />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
       {isLoggedIn ? (
         <Routes>
