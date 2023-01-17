@@ -30,7 +30,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <AppBar position="static" sx={{ bgcolor: grey[300] }}>
+      <AppBar position="fixed" sx={{ bgcolor: grey[300] }}>
         <Toolbar sx={{ p: -1 }}>
           <IconButton href="/">
             <Home></Home>
@@ -102,6 +102,7 @@ const Navbar = () => {
           </IconButton>
         </Toolbar>
       </AppBar>
+      <Toolbar />
     </div>
   );
 };
