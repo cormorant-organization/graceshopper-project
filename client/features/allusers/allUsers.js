@@ -21,23 +21,19 @@ const AllUsers = () => {
     dispatch(fetchAllUsersAsync());
   }, [dispatch]);
 
-  function createData(id, firstName, lastName, email) {
-    return { id, firstName, lastName, email };
+  function createData(id, firstName, lastName, username) {
+    return { id, firstName, lastName, username };
   }
 
-  const rows = [
-    allUsers.map((user) => {
-      createData(
-        `'${user.id}',
-        '${user.firstName}',
-        '${user.lastName}',
-        '${user.email}'`
-      );
-    }),
+  const rows = [];
+  allUsers.forEach((user) => {
+    rows.push(
+      createData(user.id, user.firstName, user.lastName, user.username)
+    );
+  }),
     // createData("1", "Shoshana", "Levitt", "shoshana.levitt@gmail.com"),
-  ];
 
-  console.log(`Rows: ${rows}`);
+    console.log(`Rows: ${rows}`);
 
   return (
     <TableContainer component={Paper} sx={{ m: 1 }}>
@@ -59,7 +55,7 @@ const AllUsers = () => {
               <TableCell align="left">{row.id}</TableCell>
               <TableCell align="left">{row.firstName}</TableCell>
               <TableCell align="left">{row.lastName}</TableCell>
-              <TableCell align="left">{row.email}</TableCell>
+              <TableCell align="left">{row.username}</TableCell>
             </TableRow>
           ))}
         </TableBody>
