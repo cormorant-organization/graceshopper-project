@@ -171,8 +171,8 @@ const userGenerator = async (num) => {
   return userArray;
 };
 
-const dogsToMake = 5;
-const usersToMake = 5;
+const dogsToMake = 50;
+const usersToMake = 50;
 
 const dogPromise = dogGenerator(dogsToMake);
 const userPromise = userGenerator(usersToMake);
