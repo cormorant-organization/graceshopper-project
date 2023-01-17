@@ -25,9 +25,9 @@ const SinglePuppyView = () => {
     dispatch(fetchSinglePuppy(id));
   }, [dispatch]);
 
-  const addToCartHandler = () => {
+  const addToCartHandler = async () => {
     if (isLoggedIn) {
-      dispatch(addToCart({ userId: userId, puppyId: puppy.id }));
+      await dispatch(addToCart({ userId: userId, puppyId: puppy.id }));
     } else {
       let savedCart = JSON.parse(window.localStorage.getItem("cart"));
       if (savedCart) {

@@ -31,7 +31,7 @@ const Navbar = () => {
     if (isLoggedIn) {
       dispatch(fetchCart(user.id));
     }
-  }, [dispatch]);
+  }, [dispatch, isLoggedIn]);
 
   return (
     <div>

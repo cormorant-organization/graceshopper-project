@@ -24,7 +24,7 @@ export const addToCart = createAsyncThunk(
   }
 );
 
-export const clearCart = createAsyncThunk("clear/cart", async (id) => {
+export const clearUserCart = createAsyncThunk("clear/cart", async (id) => {
   try {
     await axios.delete(`/api/orders/${id}/clearCart`);
   } catch (err) {
@@ -34,11 +34,13 @@ export const clearCart = createAsyncThunk("clear/cart", async (id) => {
 
 export const removeProductFromCart = createAsyncThunk(
   "removeProduct/cart",
-  async (id, puppyId) => {
+  async ({ userId, puppyId }) => {
     try {
       const { data } = await axios.delete(
-        `/api/orders/${id}/removeProduct`,
-        puppyId
+        `/api/orders/${userId}/removeProduct`,
+        {
+          data: { source: puppyId },
+        }
       );
       return data;
     } catch (err) {
@@ -49,11 +51,12 @@ export const removeProductFromCart = createAsyncThunk(
 
 export const decrementProduct = createAsyncThunk(
   "decrementProduct/cart",
-  async (id, puppyId) => {
+  async ({ userId, puppyId }) => {
     try {
+      console.log("this is puppyId from the thunk", puppyId);
       const { data } = await axios.delete(
-        `/api/orders/${id}/decrementProduct`,
-        puppyId
+        `/api/orders/${userId}/decrementProduct`,
+        { data: { source: puppyId } }
       );
       return data;
     } catch (err) {
@@ -103,7 +106,7 @@ export const CartSlice = createSlice({
       .addCase(addToCart.fulfilled, (state, action) => {
         state.push(action.payload);
       })
-      .addCase(clearCart.fulfilled, (state, action) => {
+      .addCase(clearUserCart.fulfilled, (state, action) => {
         return [];
       })
       .addCase(removeProductFromCart.fulfilled, (state, action) => {

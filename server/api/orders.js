@@ -37,17 +37,13 @@ router.get("/:id", async (req, res, next) => {
 });
 
 router.post("/:id", async (req, res, next) => {
-  console.log("this is the start of the post API");
   try {
     let order = await Order.findOne({
       where: { userId: req.params.id, closed: false },
     });
     if (!order) order = await Order.create({ userId: req.params.id });
-    console.log("this is the order from the API", order);
     const session = await order.createSession();
-    console.log("this is the session from the API before setting", session);
     await session.setPuppy(req.body.puppyId);
-    console.log("this is the session from the API after setting", session);
     await order.addSession(session.id);
     const puppy = await session.getPuppy();
     res.json(puppy);
@@ -85,7 +81,7 @@ router.delete("/:id/removeProduct", async (req, res, next) => {
       where: { userId: req.params.id, closed: false },
     });
     await Session.destroy({
-      where: { orderId: order.id, puppyId: req.body },
+      where: { orderId: order.id, puppyId: req.body.source },
     });
     res.json(Number(req.body));
   } catch (err) {
@@ -99,7 +95,7 @@ router.delete("/:id/decrementProduct", async (req, res, next) => {
       where: { userId: req.params.id, closed: false },
     });
     const session = await Session.findOne({
-      where: { orderId: order.id, puppyId: req.body },
+      where: { orderId: order.id, puppyId: req.body.source },
     });
     await session.destroy();
     res.json(session);

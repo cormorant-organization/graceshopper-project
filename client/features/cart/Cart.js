@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import {
   addToCart,
   CartSlice,
-  clearCart,
+  checkout,
+  clearUserCart,
   decrementProduct,
   fetchCart,
   removeProductFromCart,
@@ -22,21 +23,23 @@ const Cart = () => {
 
   const updateCartView = (savedCart) => {
     if (savedCart) {
-      savedCart.forEach((product) => {
-        productIds[product.id] = true;
-      });
-      let count = 0;
-      Object.keys(productIds).forEach((key) => {
-        let filteredArr = JSON.stringify(
-          savedCart.filter((product) => product.id === Number(key))
-        );
-        cartWithQuantities.push(JSON.parse(filteredArr)[0]);
-        cartWithQuantities[count].quantity = JSON.parse(filteredArr).length;
-        cartWithQuantities[count].price *= JSON.parse(filteredArr).length;
-        count++;
-      });
-      setCartToShow(cartWithQuantities);
-    } else setCartToShow([]);
+      if (savedCart.length) {
+        savedCart.forEach((product) => {
+          productIds[product.id] = true;
+        });
+        let count = 0;
+        Object.keys(productIds).forEach((key) => {
+          let filteredArr = JSON.stringify(
+            savedCart.filter((product) => product.id === Number(key))
+          );
+          cartWithQuantities.push(JSON.parse(filteredArr)[0]);
+          cartWithQuantities[count].quantity = JSON.parse(filteredArr).length;
+          cartWithQuantities[count].price *= JSON.parse(filteredArr).length;
+          count++;
+        });
+        setCartToShow(cartWithQuantities);
+      } else setCartToShow([]);
+    }
   };
 
   useEffect(() => {
@@ -61,12 +64,13 @@ const Cart = () => {
 
   const clearCartHandler = () => {
     if (isLoggedIn) {
-      dispatch(clearCart(userId));
+      dispatch(clearUserCart(userId));
+      dispatch(fetchCart(userId));
     } else {
       delete window.localStorage.cart;
       dispatch(CartSlice.actions.clearCart());
     }
-    navigate(0);
+    if (!isLoggedIn) navigate(0);
   };
 
   const incrementProductHandler = (product) => {
@@ -85,7 +89,8 @@ const Cart = () => {
 
   const decrementProductHandler = (product) => {
     if (isLoggedIn) {
-      dispatch(decrementProduct(userId, product.id));
+      dispatch(decrementProduct({ userId: userId, puppyId: product.id }));
+      dispatch(fetchCart(userId));
     } else {
       let savedCart = JSON.parse(window.localStorage.getItem("cart"));
       let removed = false;
@@ -98,12 +103,13 @@ const Cart = () => {
       window.localStorage.setItem("cart", JSON.stringify(savedCart));
       dispatch(CartSlice.actions.subtractProduct(product));
     }
-    navigate(0);
+    if (!isLoggedIn) navigate(0);
   };
 
   const removeProductHandler = (product) => {
     if (isLoggedIn) {
-      dispatch(removeProductFromCart(userId, product.id));
+      dispatch(removeProductFromCart({ userId: userId, puppyId: product.id }));
+      dispatch(fetchCart(userId));
     } else {
       let savedCart = JSON.parse(window.localStorage.getItem("cart"));
       savedCart = savedCart.filter(
@@ -112,12 +118,18 @@ const Cart = () => {
       window.localStorage.setItem("cart", JSON.stringify(savedCart));
       dispatch(CartSlice.actions.removeProduct(product));
     }
-    navigate(0);
+    if (!isLoggedIn) navigate(0);
   };
 
-  /*useEffect(() => {
-    window.localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);*/
+  const checkoutHandler = async () => {
+    if (isLoggedIn) {
+      await dispatch(checkout(userId));
+    } else {
+      delete window.localStorage.cart;
+      dispatch(CartSlice.actions.clearCart());
+    }
+    navigate("/checkout");
+  };
 
   return (
     <>
@@ -147,6 +159,7 @@ const Cart = () => {
             </div>
           );
         })}
+      {cartToShow[0] && <button onClick={checkoutHandler}>Checkout</button>}
     </>
   );
 };
