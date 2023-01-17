@@ -15,7 +15,6 @@ import {
 const AllUsers = () => {
   const allUsers = useSelector(selectAllUsers);
   const dispatch = useDispatch();
-  console.log(`all users: ${allUsers}`);
 
   useEffect(() => {
     dispatch(fetchAllUsersAsync());
@@ -30,8 +29,7 @@ const AllUsers = () => {
     rows.push(
       createData(user.id, user.firstName, user.lastName, user.username)
     );
-  }),
-
+  });
 
   return (
     <TableContainer component={Paper} sx={{ m: 1 }}>
