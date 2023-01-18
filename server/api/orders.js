@@ -83,7 +83,7 @@ router.delete("/:id/removeProduct", async (req, res, next) => {
     await Session.destroy({
       where: { orderId: order.id, puppyId: req.body.source },
     });
-    res.json(Number(req.body));
+    res.json(Number(req.body.source));
   } catch (err) {
     next(err);
   }

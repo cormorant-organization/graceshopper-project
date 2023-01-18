@@ -57,9 +57,7 @@ const Cart = () => {
   }, [dispatch, isLoggedIn]);
 
   useEffect(() => {
-    if (isLoggedIn) {
-      updateCartView(stateCart);
-    }
+    updateCartView(stateCart);
   }, [stateCart]);
 
   const clearCartHandler = () => {
@@ -70,7 +68,6 @@ const Cart = () => {
       delete window.localStorage.cart;
       dispatch(CartSlice.actions.clearCart());
     }
-    if (!isLoggedIn) navigate(0);
   };
 
   const incrementProductHandler = (product) => {
@@ -84,13 +81,11 @@ const Cart = () => {
       window.localStorage.setItem("cart", JSON.stringify(savedCart));
       dispatch(CartSlice.actions.addProduct(product));
     }
-    if (!isLoggedIn) navigate(0);
   };
 
   const decrementProductHandler = (product) => {
     if (isLoggedIn) {
       dispatch(decrementProduct({ userId: userId, puppyId: product.id }));
-      dispatch(fetchCart(userId));
     } else {
       let savedCart = JSON.parse(window.localStorage.getItem("cart"));
       let removed = false;
@@ -103,13 +98,11 @@ const Cart = () => {
       window.localStorage.setItem("cart", JSON.stringify(savedCart));
       dispatch(CartSlice.actions.subtractProduct(product));
     }
-    if (!isLoggedIn) navigate(0);
   };
 
   const removeProductHandler = (product) => {
     if (isLoggedIn) {
       dispatch(removeProductFromCart({ userId: userId, puppyId: product.id }));
-      dispatch(fetchCart(userId));
     } else {
       let savedCart = JSON.parse(window.localStorage.getItem("cart"));
       savedCart = savedCart.filter(
@@ -118,7 +111,6 @@ const Cart = () => {
       window.localStorage.setItem("cart", JSON.stringify(savedCart));
       dispatch(CartSlice.actions.removeProduct(product));
     }
-    if (!isLoggedIn) navigate(0);
   };
 
   const checkoutHandler = async () => {
@@ -152,13 +144,21 @@ const Cart = () => {
               <button onClick={() => incrementProductHandler(product)}>
                 +
               </button>
-              <p>{product.price.toFixed(2)}</p>
+              <p>${product.price.toFixed(2)}</p>
               <button onClick={() => removeProductHandler(product)}>
                 Remove
               </button>
             </div>
           );
         })}
+      {cartToShow[0] && (
+        <h5>
+          Total Price: $
+          {cartToShow
+            .reduce((accum, product) => accum + product.price, 0)
+            .toFixed(2)}
+        </h5>
+      )}
       {cartToShow[0] && <button onClick={checkoutHandler}>Checkout</button>}
     </>
   );
