@@ -82,11 +82,11 @@ export const CartSlice = createSlice({
       state.push(action.payload);
     },
     removeProduct(state, action) {
-      state = state.filter((product) => product.id !== action.payload.id);
+      return state.filter((product) => product.id !== action.payload.id);
     },
     subtractProduct(state, action) {
       let removed = false;
-      state = state.filter((product) => {
+      return state.filter((product) => {
         if (!removed && product.id === action.payload.id) {
           removed = true;
           return product.id !== action.payload.id;
@@ -100,7 +100,8 @@ export const CartSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchCart.fulfilled, (state, action) => {
-        return action.payload;
+        if (action.payload) return action.payload;
+        else return [];
       })
       .addCase(addToCart.fulfilled, (state, action) => {
         state.push(action.payload);
@@ -109,11 +110,11 @@ export const CartSlice = createSlice({
         return [];
       })
       .addCase(removeProductFromCart.fulfilled, (state, action) => {
-        state = state.filter((product) => product.id !== action.payload);
+        return state.filter((product) => product.id !== action.payload);
       })
-      .addCase(decrementProduct, (state, action) => {
+      .addCase(decrementProduct.fulfilled, (state, action) => {
         let removed = false;
-        state = state.filter((product) => {
+        return state.filter((product) => {
           if (!removed && product.id === action.payload.puppyId) {
             removed = true;
             return product.id !== action.payload.puppyId;
