@@ -144,7 +144,7 @@ const Cart = () => {
               <button onClick={() => incrementProductHandler(product)}>
                 +
               </button>
-              <p>{product.price.toFixed(2)}</p>
+              <p>${product.price.toFixed(2)}</p>
               <button onClick={() => removeProductHandler(product)}>
                 Remove
               </button>
@@ -153,7 +153,7 @@ const Cart = () => {
         })}
       {cartToShow[0] && (
         <h5>
-          Total Price:{" "}
+          Total Price: $
           {cartToShow
             .reduce((accum, product) => accum + product.price, 0)
             .toFixed(2)}
