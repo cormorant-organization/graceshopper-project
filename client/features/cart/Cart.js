@@ -159,6 +159,14 @@ const Cart = () => {
             </div>
           );
         })}
+      {cartToShow[0] && (
+        <h5>
+          Total Price:{" "}
+          {cartToShow
+            .reduce((accum, product) => accum + product.price, 0)
+            .toFixed(2)}
+        </h5>
+      )}
       {cartToShow[0] && <button onClick={checkoutHandler}>Checkout</button>}
     </>
   );
